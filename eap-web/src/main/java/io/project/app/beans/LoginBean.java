@@ -6,14 +6,10 @@
 package io.project.app.beans;
 
 import io.project.app.entities.Account;
-import io.project.app.facades.UserContextHolder;
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.Map;
-import javax.ejb.Asynchronous;
-import javax.ejb.Schedule;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+
 import javax.inject.Named;
 
 /**

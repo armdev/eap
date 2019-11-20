@@ -31,7 +31,7 @@ public class LogoutBean implements Serializable {
         context = FacesContext.getCurrentInstance();
         externalContext = context.getExternalContext();
         //remove from BE logic
-        userContext.getContextHolder().remove(userContext.getAccount().getId());
+        userContext.getContextHolder().getAccounts().remove(userContext.getAccount().getId());
         externalContext.getSessionMap().remove("userContext");
         //  externalContext.getApplicationMap().remove("userContext");
         externalContext.getSessionMap().clear();
