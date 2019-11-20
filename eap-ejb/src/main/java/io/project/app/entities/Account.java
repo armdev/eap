@@ -5,6 +5,8 @@
  */
 package io.project.app.entities;
 
+import java.util.Date;
+
 /**
  *
  * @author armena
@@ -12,6 +14,9 @@ package io.project.app.entities;
 public class Account {
 
     private Long id;
+    private String email;
+    private String password;
+    private Date recordDate;
 
     public Account(Long id, String email, String password) {
         this.id = id;
@@ -27,8 +32,13 @@ public class Account {
     public Account() {
     }
 
-    private String email;
-    private String password;
+    public Date getRecordDate() {
+        return recordDate;
+    }
+
+    public void setRecordDate(Date recordDate) {
+        this.recordDate = recordDate;
+    }
 
     public Long getId() {
         return id;

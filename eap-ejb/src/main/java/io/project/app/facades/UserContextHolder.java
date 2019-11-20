@@ -7,6 +7,7 @@ package io.project.app.facades;
 
 import io.project.app.entities.Account;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -21,16 +22,28 @@ public class UserContextHolder implements Serializable {
 
     private static final long serialVersionUID = 6680800607179243715L;
 
-    private HashMap<Long, Account> accounts
+    private final HashMap<Long, Account> accounts
             = new HashMap<>();
+
+    public void addOrUpdateAccount(Long id, Account account) {
+
+        Account get = this.getAccounts().get(id);
+
+        if (get != null) {
+            get.setRecordDate(new Date(System.currentTimeMillis()));
+            this.getAccounts().replace(id, get);
+        } else {
+            account.setRecordDate(new Date(System.currentTimeMillis()));
+            this.getAccounts().putIfAbsent(id, account);
+        }
+    }
+
+    public void remove(Long id) {
+        this.getAccounts().remove(id);
+    }
 
     public HashMap<Long, Account> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(HashMap<Long, Account> accounts) {
-        this.accounts = accounts;
-    }
-
-   
 }

@@ -31,11 +31,9 @@ public class LoginBean implements Serializable {
 
     @Inject
     private LoginRestClient loginRestClient;
-    
+
     @Inject
     private FrontendValidator frontendValidator;
-    
-    
 
     private String email;
     private String password;
@@ -45,12 +43,10 @@ public class LoginBean implements Serializable {
         //check success, error....
         userContext.setAccount(doLoginWithAuthMicroservice);
 
-        userContext.getContextHolder().getAccounts().put(doLoginWithAuthMicroservice.getId(), doLoginWithAuthMicroservice);
+        userContext.getContextHolder().addOrUpdateAccount(doLoginWithAuthMicroservice.getId(), doLoginWithAuthMicroservice);
         frontendValidator.init();
         return "profile";
     }
-    
-   
 
     public String getEmail() {
         return email;
