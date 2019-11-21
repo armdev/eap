@@ -16,16 +16,30 @@ import javax.inject.Named;
  *
  * @author armena
  */
-@Named
+@Named(value = "userContext")
 @SessionScoped
-public class UserContext implements Serializable{
+public class UserContext implements Serializable {
 
     private static final long serialVersionUID = -6300995516234451200L;
-    
-    private Account account = new Account();
-    
-    @Inject   
+
+    @Inject
     private UserContextHolder contextHolder;
+
+    @Inject
+    private FrontendTimer frontendTimer;    
+
+    private Account account = new Account();
+
+    public void sessionCreated() {
+        System.out.println("Session Created");
+                
+        frontendTimer.add(account);
+    }
+
+    public void sessionDestroyed() {
+        System.out.println("Session Destroyed");
+        frontendTimer.remove(account);
+    }
 
     public Account getAccount() {
         return account;
@@ -33,8 +47,8 @@ public class UserContext implements Serializable{
 
     public void setAccount(Account account) {
         this.account = account;
-    }  
-    
+    }
+
     public UserContextHolder getContextHolder() {
         return contextHolder;
     }
@@ -42,8 +56,4 @@ public class UserContext implements Serializable{
     public void setContextHolder(UserContextHolder contextHolder) {
         this.contextHolder = contextHolder;
     }
-    
-    
-    
-    
 }

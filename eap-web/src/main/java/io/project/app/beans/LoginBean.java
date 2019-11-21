@@ -28,19 +28,17 @@ public class LoginBean implements Serializable {
     @Inject
     private LoginRestClient loginRestClient;
 
-    @Inject
-    private FrontendValidator frontendValidator;
-
     private String email;
     private String password;
 
     public String doLogin() {
+        
         Account doLoginWithAuthMicroservice = loginRestClient.doLoginWithAuthMicroservice(email, password);
         //check success, error....
         userContext.setAccount(doLoginWithAuthMicroservice);
 
         userContext.getContextHolder().addOrUpdateAccount(doLoginWithAuthMicroservice.getId(), doLoginWithAuthMicroservice);
-        frontendValidator.init();
+       
         return "profile";
     }
 
