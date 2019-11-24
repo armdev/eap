@@ -30,17 +30,21 @@ public class FrontendTimer {
     @Schedule(second = "*/10", minute = "*", hour = "*", persistent = false)
     @Asynchronous
     public void atSchedule() throws InterruptedException {
-       // System.out.println("FRONTEND: Get Logged user stored in the session each 5 seconds ");
+        // System.out.println("FRONTEND: Get Logged user stored in the session each 5 seconds ");
 
         for (Account ac : currentSessions) {
-            System.out.println("FRONTEND: Sending active users to backend " + ac.toString());
-            backendSender.getContextHolder().addOrUpdateAccount(ac.getId(), ac);
+
+            if (ac.getId() != null) {
+                System.out.println("FRONTEND: Sending active users to backend " + ac.toString());
+                backendSender.getContextHolder().addOrUpdateAccount(ac.getId(), ac);
+            }
+
         }
 
     }
 
     public void add(Account account) {
-       // System.out.println("FRONTEND: Ooo, account added");
+        // System.out.println("FRONTEND: Ooo, account added");
         currentSessions.add(account);
     }
 
