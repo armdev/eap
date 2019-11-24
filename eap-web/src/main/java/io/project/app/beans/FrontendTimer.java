@@ -25,16 +25,16 @@ public class FrontendTimer {
     private List<Account> currentSessions = new ArrayList<>();
 
     @Inject
-    private UserContext userContext;
+    private BackendSender backendSender;
 
-    @Schedule(second = "*/5", minute = "*", hour = "*", persistent = false)
+    @Schedule(second = "*/10", minute = "*", hour = "*", persistent = false)
     @Asynchronous
     public void atSchedule() throws InterruptedException {
-        System.out.println("FRONTEND: Get Logged user stored in the session each 5 seconds ");       
+        System.out.println("FRONTEND: Get Logged user stored in the session each 5 seconds ");
 
         for (Account ac : currentSessions) {
-            System.out.println("FRONTEND: Sending active users to backend " + ac.getEmail());
-            userContext.getContextHolder().addOrUpdateAccount(ac.getId(), ac);
+            System.out.println("FRONTEND: Sending active users to backend " + ac.toString());
+            backendSender.getContextHolder().addOrUpdateAccount(ac.getId(), ac);
         }
 
     }
@@ -45,7 +45,7 @@ public class FrontendTimer {
     }
 
     public void remove(Account account) {
-          System.out.println("FRONTEND: Ooo, account removed");
+        System.out.println("FRONTEND: Ooo, account removed");
         currentSessions.remove(account);
     }
 

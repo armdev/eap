@@ -31,13 +31,12 @@ public class UserContext implements Serializable {
     private Account account = new Account();
 
     public void sessionCreated() {
-        System.out.println("Session Created");
-                
+        System.out.println("UserContext: Session Created");                
         frontendTimer.add(account);
     }
 
     public void sessionDestroyed() {
-        System.out.println("Session Destroyed");
+        System.out.println("UserContext: Session Destroyed");
         frontendTimer.remove(account);
     }
 

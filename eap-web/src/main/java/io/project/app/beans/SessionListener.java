@@ -5,10 +5,9 @@
  */
 package io.project.app.beans;
 
-import javax.faces.context.ExternalContext;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -16,18 +15,20 @@ import javax.servlet.http.HttpSessionListener;
  *
  * @author armena
  */
-@WebListener
+
 public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        System.out.println("sessionCreated started");
-        HttpSession session = se.getSession();
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
-        UserContext userContext = (UserContext) externalContext.getSessionMap().get("userContext");
+
+        FacesContext context = FacesUtil.getFacesContext(HttpJSFUtil.getRequest(), HttpJSFUtil.getResponse());
+        UserContext userContext = context.getApplication().evaluateExpressionGet(
+                context, "#{userContext}", UserContext.class);
+
+        System.out.println("LISTENER: SessionCreated started");
+
         if (userContext != null) {
-            System.out.println("SessionCreated, URA");
+            System.out.println("LISTENER SessionCreated, URA");
             userContext.sessionCreated();
         }
 
@@ -35,13 +36,12 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        HttpSession session = se.getSession();
+        FacesContext context = FacesUtil.getFacesContext(HttpJSFUtil.getRequest(), HttpJSFUtil.getResponse());
+        UserContext userContext = context.getApplication().evaluateExpressionGet(
+                context, "#{userContext}", UserContext.class);
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
-        UserContext userContext = (UserContext) externalContext.getSessionMap().get("userContext");
         if (userContext != null) {
-            System.out.println("SessionDestroyed");
+            System.out.println("LISTENER SessionDestroyed???");
             userContext.sessionDestroyed();
         }
 
