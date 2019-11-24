@@ -49,7 +49,7 @@ public class FrontendTimer {
     }
 
     public void remove(Account account) {
-        //System.out.println("FRONTEND: Ooo, account removed");
+        System.out.println("FRONTEND: Ooo, account removed");
         currentSessions.remove(account);
     }
 

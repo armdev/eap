@@ -28,7 +28,7 @@ public class SessionListener implements HttpSessionListener {
        // System.out.println("LISTENER: SessionCreated started");
 
         if (userContext != null) {
-          //  System.out.println("LISTENER SessionCreated, URA");
+           System.out.println("LISTENER SessionCreated, URA");
             userContext.sessionCreated();
         }
 
@@ -41,7 +41,7 @@ public class SessionListener implements HttpSessionListener {
                 context, "#{userContext}", UserContext.class);
 
         if (userContext != null) {
-          //  System.out.println("LISTENER SessionDestroyed???");
+            System.out.println("LISTENER SessionDestroyed???");
             userContext.sessionDestroyed();
         }
 
