@@ -48,7 +48,7 @@ public class UserContextScheduler implements Serializable {
             System.out.println(result);
 
             long toMinutes = TimeUnit.MILLISECONDS.toMinutes(result);
-            if (toMinutes > 5) {
+            if (toMinutes > 2) {
                 System.out.println("Deleting from online users: ToMinutes " + toMinutes);
 
                 contextHolder.getAccounts().remove(entry.getKey());

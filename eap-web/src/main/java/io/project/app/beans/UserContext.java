@@ -36,7 +36,7 @@ public class UserContext implements Serializable {
     }
 
     public void sessionDestroyed() {
-        System.out.println("UserContext: Session Destroyed");
+       // System.out.println("UserContext: Session Destroyed");
         frontendTimer.remove(account);
     }
 
